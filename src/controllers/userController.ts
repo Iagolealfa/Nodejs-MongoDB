@@ -1,4 +1,28 @@
 import { Request, Response } from 'express';
+import User from '../models/User';
+
+
+
+
+
+export const addUserAction= async (req: Request, res: Response) =>{
+    let {firstName,lastName,email,interests,age} = req.body
+    let newUser = new User()
+    newUser.name = {firstName,lastName}
+    newUser.email = email
+    newUser.age = age
+    newUser.interests = interests.split(',')
+
+    try{
+        await newUser.save()
+        console.log('Usuario adicionado com sucesso!')
+        res.redirect('/')
+    }catch(error){
+        console.log('Deu errado alguma coisa')
+        res.redirect('/')
+    }
+
+}
 
 export const nome = (req: Request, res: Response) => {
     let nome: string = req.query.nome as string;
