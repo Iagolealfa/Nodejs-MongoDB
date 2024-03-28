@@ -3,7 +3,16 @@ import User from '../models/User';
 
 
 
-
+export const addAgeAction = async  (req: Request, res: Response) =>{
+    let id : string = req.params.id
+    let user = await User.findById(id)
+    if(user){
+        user.age++
+        await user.save()
+    }
+    
+    res.redirect('/')
+}
 
 export const addUserAction= async (req: Request, res: Response) =>{
     let {firstName,lastName,email,interests,age} = req.body
